@@ -8,7 +8,7 @@ from funcoes import addPedido, executaPedido, preparaPedido, pedidos, emPreparac
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Trabalho")
+        self.setWindowTitle("Trabalho Grau B")
         self.pedido_atual = Pedido()
 
         self.setCentralWidget(QWidget())
@@ -45,15 +45,28 @@ class Window(QMainWindow):
         layout = QVBoxLayout()
         font = QFont()
         font.setPixelSize(50)
+        fontText = QFont()
+        fontText.setPixelSize(25)
 
         label = QLabel('Cardápio')
         label.setAlignment(Qt.AlignCenter)
         label.setFont(font)
 
+        hamburger = QLabel('Hamburger      35R$')
+        hamburger.setAlignment(Qt.AlignLeft)
+        hamburger.setFont(fontText)
+
+        coca = QLabel('Coca-cola        5R$')
+        coca.setAlignment(Qt.AlignLeft)
+        coca.setFont(fontText)
+
+
         botao_voltar = QPushButton('Voltar')
         botao_voltar.clicked.connect(self.principal)
 
         layout.addWidget(label)
+        layout.addWidget(hamburger)
+        layout.addWidget(coca)
         layout.addWidget(botao_voltar)
 
         self.setCentralWidget(base)
@@ -69,18 +82,22 @@ class Window(QMainWindow):
         label.setAlignment(Qt.AlignCenter)
         label.setFont(font)
 
-        botao_hamburguer = QPushButton('Hamburger+1')
+        botao_hamburguer = QPushButton('Adicionar Hamburger')
         botao_hamburguer.clicked.connect(self.add_hamburguer)
+
+        botao_coca = QPushButton('Adicionar Coca-cola')
+        botao_coca.clicked.connect(self.add_coca)
         
-        botao_executar_pedido = QPushButton('Executar Pedido')
-        botao_executar_pedido.clicked.connect(self.executar_pedido)
+        botao_fazer_pedido = QPushButton('Fazer Pedido')
+        botao_fazer_pedido.clicked.connect(self.fazer_pedido)
         
         botao_voltar = QPushButton('Voltar')
         botao_voltar.clicked.connect(self.principal)
 
         layout.addWidget(label)
         layout.addWidget(botao_hamburguer)
-        layout.addWidget(botao_executar_pedido)
+        layout.addWidget(botao_coca)
+        layout.addWidget(botao_fazer_pedido)
         layout.addWidget(botao_voltar)
 
         self.setCentralWidget(base)
@@ -100,6 +117,9 @@ class Window(QMainWindow):
         self.em_preparacao_list = QListWidget()
         self.pronto_list = QListWidget()
 
+        botao_comecar = QPushButton('comecar Pedido')
+        botao_comecar.clicked.connect(self.comecar_pedido)
+
         botao_preparar = QPushButton('Preparar Pedido')
         botao_preparar.clicked.connect(self.preparar_pedido)
         
@@ -109,11 +129,13 @@ class Window(QMainWindow):
         layout.addWidget(label)
         layout.addWidget(QLabel('Pedidos:'))
         layout.addWidget(self.pedidos_list)
+        layout.addWidget(botao_comecar)
         layout.addWidget(QLabel('Em Preparação:'))
         layout.addWidget(self.em_preparacao_list)
+        layout.addWidget(botao_preparar)
         layout.addWidget(QLabel('Pronto:'))
         layout.addWidget(self.pronto_list)
-        layout.addWidget(botao_preparar)
+        
         layout.addWidget(botao_voltar)
 
         self.setCentralWidget(base)
@@ -124,11 +146,18 @@ class Window(QMainWindow):
         item = HamburgerCarne("Hamburger de Carne", "P")
         self.pedido_atual.addItem(item, 1)
 
-    def executar_pedido(self):
+    def add_coca(self):
+        item = Cocacola("Coquinha")
+        self.pedido_atual.addItem(item, 1)
+
+    def fazer_pedido(self):
         addPedido(self.pedido_atual)
         self.pedido_atual = Pedido()
-        executaPedido()
 
+    def comecar_pedido(self):
+        executaPedido()
+        self.update_lists()
+    
     def preparar_pedido(self):
         preparaPedido()
         self.update_lists()

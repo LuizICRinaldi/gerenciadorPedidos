@@ -19,6 +19,3 @@ class Pedido:
     def __str__(self):
         itens_str = "\n".join([f"{item} x {qtd}" for item, qtd in self.itens])
         return f"Pedido ID: {self.id}\nItens:\n{itens_str}\nTotal: R${self.preco:.2f}\n"
-    
-    def __repr__(self):
-        return f"Pedido ID: {self.id}"
