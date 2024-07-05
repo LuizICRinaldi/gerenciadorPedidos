@@ -1,8 +1,8 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QPushButton, QVBoxLayout, QListWidget
+from PySide6.QtWidgets import QMainWindow, QWidget, QLabel, QPushButton, QVBoxLayout, QListWidget
 from classePedido import Pedido
-from itens import Itens, Hamburgeres, HamburgerCarne, Bebidas, Cocacola
+from itens import HamburgerCarne, Cocacola
 from funcoes import addPedido, executaPedido, preparaPedido, pedidos, emPreparacao, pronto
 
 class Window(QMainWindow):
